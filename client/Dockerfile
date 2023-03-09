@@ -11,4 +11,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # run the client script
-CMD ["python", "client.py"]
+CMD ["/bin/bash"]

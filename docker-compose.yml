@@ -1,8 +1,10 @@
 version: '3.9'
 services:
+
   zookeeper:
     image: zookeeper-service
     build: ./zookeeper-service
+
   kafka:
     image: kafka-service
     build: ./kafka-service
@@ -12,14 +14,17 @@ services:
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper-service:2181
     ports:
       - "9092:9092"
+
   client1:
     image: client
     build: ./client
+    tty: true
+    stdin_open: true
     depends_on:
       - kafka
       - zookeeper
+      - database
     environment:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - KAFKA_TOPIC=test-topic
       - GROUP_ID=test-group
-    command: python client.py
