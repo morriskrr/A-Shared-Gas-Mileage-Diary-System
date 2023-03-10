@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtGui import QIntValidator
 from kafka_lib import *
 import threading
 import datetime
@@ -13,7 +14,6 @@ class UI(QMainWindow):
         self.consumer = MileageDiaryConsumer(BOOTSTRAP_SERVER, KAFKA_TOPIC, GROUP_ID)
         self.setFixedSize(800, 480)
         self.setWindowTitle("A Shared Gas Mileage Diary")
-
 
         # Create InputForm tab
         self.input_layout = QVBoxLayout()
@@ -40,15 +40,19 @@ class InputForm(QWidget):
 
         self.producer = MileageDiaryProducer(BOOTSTRAP_SERVER, KAFKA_TOPIC)
 
+        onlyInts = QIntValidator()
         # Create form elements
-        self.name_label = QLabel("Name:")
+        self.name_label = QLabel("Driver:")
         self.name_input = QLineEdit()
         self.start_label = QLabel("Starting kilometers:")
         self.start_input = QLineEdit()
+        self.start_input.setValidator(onlyInts)
         self.end_label = QLabel("Ending kilometers:")
         self.end_input = QLineEdit()
+        self.end_input.setValidator(onlyInts)
         self.fill_label = QLabel("Filled fuel in euros:")
         self.fill_input = QLineEdit()
+        self.fill_input.setValidator(onlyInts)
         self.fill_input.setText("0")
 
         self.submit_button = QPushButton("Submit")
@@ -86,7 +90,7 @@ class InputForm(QWidget):
         submission_time = datetime.datetime.now().timestamp()
 
         message = {
-            "Name": name,
+            "Driver": name,
             "Starting_kilometers": start,
             "Ending_kilometers": end,
             "Filled_fuel_in_Euros": fill,
@@ -128,7 +132,7 @@ class InputViewer(QWidget):
 
     def add_message(self, message: str):
         message_dict = json.loads(message)
-        message_string = f'Drive entry by {message_dict["Name"]}, ' \
+        message_string = f'Drive entry by {message_dict["Driver"]}, ' \
                         f'Started at {message_dict["Starting_kilometers"]} ' \
                         f'and ended at {message_dict["Ending_kilometers"]}, ' \
                         f'Filled {message_dict["Filled_fuel_in_Euros"]}€ of gas.'
