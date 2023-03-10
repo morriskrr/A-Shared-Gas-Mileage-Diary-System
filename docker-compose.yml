@@ -2,29 +2,19 @@ version: '3.9'
 services:
 
   zookeeper:
-    image: zookeeper-service
-    build: ./zookeeper-service
+    image: wurstmeister/zookeeper:3.4.6
+    ports:
+     - "2181:2181"
+    expose:
+      - 2181
 
   kafka:
-    image: kafka-service
-    build: ./kafka-service
+    image: wurstmeister/kafka
     depends_on:
-      - zookeeper-service
+      - zookeeper
     environment:
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper-service:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     ports:
       - "9092:9092"
-
-  client1:
-    image: client
-    build: ./client
-    tty: true
-    stdin_open: true
-    depends_on:
-      - kafka
-      - zookeeper
-      - database
-    environment:
-      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
-      - KAFKA_TOPIC=test-topic
-      - GROUP_ID=test-group
