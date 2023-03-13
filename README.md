@@ -21,7 +21,7 @@ The architecture consists of three distributed parts, a zookeeper instance for m
 ### Steps to install/launch
 1. `git clone https://github.com/morriskrr/A-Shared-Gas-Mileage-Diary-System.git`
 1. (optional/recommended) create virtual environtment `python3 -m venv env` and `. env/bin/activate`
-1. `cd shared_diary`
+1. `cd A-Shared-Gas-Mileage-Diary-System`
 1. Install python requirements: `pip3 install .`
 1. make sure nothing is running on ports 2181, 9092 `lsof -i:{port}` or `netstat -tulpn`
 1. (terminal 1) Run the Zookeeper and Kafka services with Docker compose: `docker-compose up`
