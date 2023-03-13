@@ -117,7 +117,7 @@ class InputForm(QWidget):
 
 
 class InputViewer(QWidget):
-	
+    
     def __init__(self, consumer, BOOTSTRAP_SERVER, KAFKA_TOPIC, GROUP_ID, parent=None):
         super().__init__(parent)
 

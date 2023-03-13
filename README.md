@@ -29,9 +29,9 @@ The architecture consists of three distributed parts, a zookeeper instance for m
 
 ### Troubleshooting
 - if you get some Qt error, add debug variable to environtment `export QT_DEBUG_PLUGINS=1` to
-	get more verbose  error log.
+    get more verbose  error log.
 - possibly reinstall `sudo apt-get install --reinstall libxcb-xinerama0`
-	this was required for latest ubuntu release 22.04
+    this was required for latest ubuntu release 22.04
 
 ### Usage:
 - Enter Driver name.

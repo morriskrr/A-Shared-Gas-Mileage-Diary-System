@@ -16,9 +16,9 @@ setup(
     url='https://github.com/morriskrr/A-Shared-Gas-Mileage-Diary-System',
     packages=find_packages(include=['shared_diary', 'shared_diary.*']),
     install_requires=[
-		'confluent-kafka==2.0.2',
-		'pyqt5==5.15.9',
-		'pytest'
+        'confluent-kafka==2.0.2',
+        'pyqt5==5.15.9',
+        'pytest'
     ],
-	setup_requires=['wheel']
+    setup_requires=['wheel']
 )
